@@ -1,0 +1,394 @@
+{
+	"info": {
+		"_postman_id": "dd6b528f-4034-4094-87f1-b03a6cd9aa16",
+		"name": "Siberia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14049442"
+	},
+	"item": [
+		{
+			"name": "Siberia.CoreWebAPI",
+			"item": [
+				{
+					"name": "Single",
+					"item": [
+						{
+							"name": "Single Read",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines(46)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(46)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 59,\r\n    \"Name\": \"NordStream2\",\r\n    \"Location\": \"Baltic\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Pipelines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Update Property",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Location\": \"Venezuela\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines(48)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(48)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Update Entity",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 47,\r\n    \"Name\": \"NordStream2\",\r\n    \"Location\": \"Baltic\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines(47)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(47)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines(59)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(59)"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Batch",
+					"item": [
+						{
+							"name": "Batch Sample",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json; odata=verbose; IEEE754Compatible=true",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "BPMCSRF",
+										"value": "{{BPMCSRF}}",
+										"type": "text"
+									},
+									{
+										"key": "ForceUseSession",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"requests\": [\r\n\t{\r\n\t\t\"method\": \"POST\",\r\n\t\t\"url\": \"Pipelines\",\r\n\t\t\"id\": \"t3\",\r\n\t\t\"body\": {\r\n\t\t\t\"Id\": 52,\r\n            \"Name\": \"Saharan\",\r\n            \"Location\": \"Nigeria\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t},\r\n\t{\r\n\t\t\"method\": \"PATCH\",\r\n\t\t\"atomicityGroup\": \"g1\",\r\n\t\t\"url\": \"Pipelines/51\",\r\n\t\t\"id\": \"t2\",\r\n\t\t\"body\": {\r\n\t\t\t\"Location\": \"Japan\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t}\r\n\t]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/$batch",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"$batch"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Siberia.FrameworkWebAPI",
+			"item": [
+				{
+					"name": "Single",
+					"item": [
+						{
+							"name": "Single Read",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44300/NordStreamDb/Pipelines(46)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44300",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(46)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 59,\r\n    \"Name\": \"NordStream2\",\r\n    \"Location\": \"Baltic\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44300/NordStreamDb/Pipelines",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44300",
+									"path": [
+										"NordStreamDb",
+										"Pipelines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Update Property",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Location\": \"Venezuela\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44300/NordStreamDb/Pipelines(48)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44300",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(48)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Update Entity",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 47,\r\n    \"Name\": \"NordStream2\",\r\n    \"Location\": \"Baltic\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44300/NordStreamDb/Pipelines(47)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44300",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(47)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Single Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44300/NordStreamDb/Pipelines(59)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44300",
+									"path": [
+										"NordStreamDb",
+										"Pipelines(59)"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Batch",
+					"item": [
+						{
+							"name": "Batch Sample",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json; odata=verbose; IEEE754Compatible=true",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "BPMCSRF",
+										"value": "{{BPMCSRF}}",
+										"type": "text"
+									},
+									{
+										"key": "ForceUseSession",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"requests\": [\r\n\t{\r\n\t\t\"method\": \"POST\",\r\n\t\t\"url\": \"Pipelines\",\r\n\t\t\"id\": \"t3\",\r\n\t\t\"body\": {\r\n\t\t\t\"Id\": 52,\r\n            \"Name\": \"Saharan\",\r\n            \"Location\": \"Nigeria\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t},\r\n\t{\r\n\t\t\"method\": \"PATCH\",\r\n\t\t\"atomicityGroup\": \"g1\",\r\n\t\t\"url\": \"Pipelines/51\",\r\n\t\t\"id\": \"t2\",\r\n\t\t\"body\": {\r\n\t\t\t\"Location\": \"Japan\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t}\r\n\t]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44300/NordStreamDb/$batch",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44300",
+									"path": [
+										"NordStreamDb",
+										"$batch"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
