@@ -52,7 +52,7 @@ namespace Siberia.SourceLibrary.Generators
                 string source = $@"// Auto-generated code
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
-using " + contextMember.Key.Item2 + ";" + Environment.NewLine +
+using " + contextMember.Key.Item2 + ";" + Environment.NewLine + Environment.NewLine +
 "namespace " + context.Compilation.AssemblyName + ".Models.EntityDataModel" + $@"
 {{
     public class " + contextName.Replace("Context", "") + $@"EntityDataModel
