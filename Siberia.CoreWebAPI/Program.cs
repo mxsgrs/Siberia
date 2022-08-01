@@ -12,19 +12,17 @@ odataBatchHandler.MessageQuotas.MaxNestingDepth = 2;
 odataBatchHandler.MessageQuotas.MaxOperationsPerChangeset = 10;
 odataBatchHandler.MessageQuotas.MaxReceivedMessageSize = 100;
 
-// Add OData route
-builder.Services.AddControllers()
-    .AddOData(opt => opt.AddRouteComponents("NordStreamDb", NordStreamDbEntityDataModel.GeEntityTypeDataModel(), odataBatchHandler));
-
 // Add DbContext
-builder.Services
-    .AddDbContext<NordStreamDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("NordStreamDbEntities")));
+string NordStreamDbConnectionString = builder.Configuration.GetConnectionString("NordStreamDbEntities");
+builder.Services.AddDbContext<NordStreamDbContext>(options => options.UseSqlServer(NordStreamDbConnectionString));
+
+// Add OData route
+builder.Services.AddControllers().AddOData(options =>
+    options.AddRouteComponents("NordStreamDb", NordStreamDbEntityDataModel.GeEntityTypeDataModel(), odataBatchHandler));
 
 // Enable CORS
 builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins, policy => { policy.WithOrigins("http://example.com"); });
-});
+    options.AddPolicy(MyAllowSpecificOrigins, policy => policy.WithOrigins("http://example.com")));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
