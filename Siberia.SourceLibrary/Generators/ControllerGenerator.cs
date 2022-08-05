@@ -14,14 +14,14 @@ namespace Siberia.SourceLibrary.Generators
     {
         public void Initialize(GeneratorInitializationContext context)
         {
-            context.RegisterForSyntaxNotifications(() => new DbContextFinder());
+            context.RegisterForSyntaxNotifications(() => new DataModelFinder());
         }
 
         public void Execute(GeneratorExecutionContext context)
         {
             string controller = ""; // Store controller names
             HashSet<string> namespaceAliasHashSet = new(); // Store namespaces
-            var contextList = ((DbContextFinder)context.SyntaxReceiver)?.ContextList; // Get classes that inherits DbContext
+            var contextList = ((DataModelFinder)context.SyntaxReceiver)?.ContextList; // Get classes that inherits DbContext
             foreach (var contextItem in contextList) // Iterate over each class that inherits DbContext
             {
                 string contextName = contextItem.Identifier.ValueText; // Get context name

@@ -14,13 +14,14 @@ namespace Siberia.SourceLibrary.Generators
     {
         public void Initialize(GeneratorInitializationContext context)
         {
-            context.RegisterForSyntaxNotifications(() => new DbContextFinder());
+            context.RegisterForSyntaxNotifications(() => new DataModelFinder());
         }
 
         public void Execute(GeneratorExecutionContext context)
         {
             Dictionary<(string, string), SyntaxList<MemberDeclarationSyntax>> contextMembers = new(); // Store DbContext childs with their members
-            var contextList = ((DbContextFinder)context.SyntaxReceiver)?.ContextList; // Get classes that inherits DbContext
+            HashSet<ClassDeclarationSyntax> contextList = ((DataModelFinder)context.SyntaxReceiver)?.ContextList; // Get classes that inherits DbContext
+            Dictionary<string, HashSet<string>> primaryKeyDictionary = ((DataModelFinder)context.SyntaxReceiver)?.TypeKeysDictionary; // Get entity type primary keys
 
             foreach (var contextItem in contextList) // Iterate over each class that inherits DbContext
             {
@@ -45,7 +46,14 @@ namespace Siberia.SourceLibrary.Generators
                     {
                         string typeName = property.Identifier.ValueText; // Get property name
                         string typeClass = property.Type.ToString().Replace("DbSet<", "").Replace(">", "").Replace("?", ""); // Get property type
-                        entitySet += "            " + $@"builder.EntitySet<" + typeClass + ">(\"" + typeName + "\");" + Environment.NewLine; // Entity set declaration
+                        entitySet += "            " + $@"builder.EntitySet<" + typeClass + ">(\"" + typeName + "\")"; // Entity set declaration
+
+                        if (primaryKeyDictionary.ContainsKey(typeClass) && primaryKeyDictionary[typeClass].Count > 1) // Class has composite key
+                        {
+                            var compositeKey = primaryKeyDictionary[typeClass].Select(key => "property." + key); // Create composite key description
+                            entitySet += ".HasKey(property => new{ " + string.Join(", ", compositeKey) + " })"; // Add composite key to entity data model
+                        }
+                        entitySet += ";" + Environment.NewLine; // Go to next line
                     }
                 }
 
