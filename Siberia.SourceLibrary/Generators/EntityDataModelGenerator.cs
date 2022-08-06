@@ -21,8 +21,7 @@ namespace Siberia.SourceLibrary.Generators
         {
             Dictionary<(string, string), SyntaxList<MemberDeclarationSyntax>> contextMembers = new(); // Store DbContext childs with their members
             HashSet<ClassDeclarationSyntax> contextList = ((DataModelFinder)context.SyntaxReceiver)?.ContextList; // Get classes that inherits DbContext
-            Dictionary<string, HashSet<string>> primaryKeyDictionary = ((DataModelFinder)context.SyntaxReceiver)?.TypeKeysDictionary; // Get entity type primary keys
-            string h = ((DataModelFinder)context.SyntaxReceiver)?.MyProperty;
+            Dictionary<string, HashSet<(string, string)>> primaryKeyDictionary = ((DataModelFinder)context.SyntaxReceiver)?.TypeKeysDictionary; // Get entity type primary keys
 
             foreach (var contextItem in contextList) // Iterate over each class that inherits DbContext
             {
@@ -45,13 +44,13 @@ namespace Siberia.SourceLibrary.Generators
                 {
                     if (member is PropertyDeclarationSyntax property && property.Type.ToString().Contains("DbSet")) // Test if member is a DbSet
                     {
-                        string typeName = property.Identifier.ValueText; // Get property name
-                        string typeClass = property.Type.ToString().Replace("DbSet<", "").Replace(">", "").Replace("?", ""); // Get property type
-                        entitySet += "            " + $@"builder.EntitySet<" + typeClass + ">(\"" + typeName + "\")"; // Entity set declaration
+                        string entityName = property.Identifier.ValueText; // Get property name
+                        string entityType = property.Type.ToString().Replace("DbSet<", "").Replace(">", "").Replace("?", ""); // Get property type
+                        entitySet += "            " + $@"builder.EntitySet<" + entityType + ">(\"" + entityName + "\")"; // Entity set declaration
 
-                        if (primaryKeyDictionary.ContainsKey(typeClass) && primaryKeyDictionary[typeClass].Count > 1) // Class has composite key
+                        if (primaryKeyDictionary.ContainsKey(entityType) && primaryKeyDictionary[entityType].Count > 1) // Class has composite key
                         {
-                            var compositeKey = primaryKeyDictionary[typeClass].Select(key => "entityType." + key); // Create composite key description
+                            var compositeKey = primaryKeyDictionary[entityType].Select(key => "entityType." + key.Item2); // Create composite key description
                             entitySet += ".EntityType.HasKey(entityType => new { " + string.Join(", ", compositeKey) + " })"; // Add composite key to entity data model
                         }
                         entitySet += ";" + Environment.NewLine; // Go to next line
@@ -71,7 +70,7 @@ using " + contextMember.Key.Item2 + ";" + Environment.NewLine + Environment.NewL
             ODataConventionModelBuilder builder = new();" + Environment.NewLine + entitySet + $@"            return builder.GetEdmModel();
         }}
     }}
-}}" + "//" + h;
+}}";
 
                 context.AddSource(contextName.Replace("Context", "") + "EntityDataModel.g.cs", SourceText.From(source, Encoding.UTF8)); // Create new entity data model class
             }

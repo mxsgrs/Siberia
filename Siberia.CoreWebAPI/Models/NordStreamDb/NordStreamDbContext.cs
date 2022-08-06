@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Siberia.CoreWebAPI.Models.NordStreamDb
 {
     public partial class NordStreamDbContext : DbContext
     {
-        public NordStreamDbContext()
-        {
-        }
+        public NordStreamDbContext() { }
 
-        public NordStreamDbContext(DbContextOptions<NordStreamDbContext> options)
-            : base(options)
-        {
-        }
+        public NordStreamDbContext(DbContextOptions<NordStreamDbContext> options) : base(options) { }
 
         public virtual DbSet<Pipeline> Pipelines { get; set; } = null!;
         public virtual DbSet<Society> Societies { get; set; } = null!;

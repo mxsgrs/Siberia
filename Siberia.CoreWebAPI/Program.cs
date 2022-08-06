@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Batch;
 using Microsoft.EntityFrameworkCore;
-//using Siberia.CoreWebAPI.Models.EntityDataModel;
+using Siberia.CoreWebAPI.Models.EntityDataModel;
 using Siberia.CoreWebAPI.Models.NordStreamDb;
-using Siberia.CoreWebAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

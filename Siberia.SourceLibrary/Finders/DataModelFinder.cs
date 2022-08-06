@@ -8,8 +8,7 @@ namespace Siberia.SourceLibrary.Finders
     internal class DataModelFinder : ISyntaxReceiver
     {
         public HashSet<ClassDeclarationSyntax> ContextList { get; } = new();
-        public Dictionary<string, HashSet<string>> TypeKeysDictionary { get; } = new();
-        public string MyProperty { get; set; } = "";
+        public Dictionary<string, HashSet<(string, string)>> TypeKeysDictionary { get; } = new();
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
@@ -29,7 +28,7 @@ namespace Siberia.SourceLibrary.Finders
                     .Where(property => property.AttributeLists.Where(item => item.Attributes
                         .Where(att => att.Name.ToFullString() == "Key").Any())
                         .Any())
-                    .Select(property => property.Identifier.ValueText)
+                    .Select(property => (property.Type.ToString(), property.Identifier.ValueText))
                     .ToList();
 
                 string classDeclarationName = typeClassDeclaration.Identifier.ValueText;
@@ -40,7 +39,7 @@ namespace Siberia.SourceLibrary.Finders
                 }
                 else
                 {
-                    var hashset = new HashSet<string>(list);
+                    var hashset = new HashSet<(string, string)>(list);
                     TypeKeysDictionary.Add(classDeclarationName, hashset);
                 }
             }
