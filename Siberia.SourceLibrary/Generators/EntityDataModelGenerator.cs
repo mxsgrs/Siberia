@@ -22,6 +22,7 @@ namespace Siberia.SourceLibrary.Generators
             Dictionary<(string, string), SyntaxList<MemberDeclarationSyntax>> contextMembers = new(); // Store DbContext childs with their members
             HashSet<ClassDeclarationSyntax> contextList = ((DataModelFinder)context.SyntaxReceiver)?.ContextList; // Get classes that inherits DbContext
             Dictionary<string, HashSet<string>> primaryKeyDictionary = ((DataModelFinder)context.SyntaxReceiver)?.TypeKeysDictionary; // Get entity type primary keys
+            string h = ((DataModelFinder)context.SyntaxReceiver)?.MyProperty;
 
             foreach (var contextItem in contextList) // Iterate over each class that inherits DbContext
             {
@@ -50,8 +51,8 @@ namespace Siberia.SourceLibrary.Generators
 
                         if (primaryKeyDictionary.ContainsKey(typeClass) && primaryKeyDictionary[typeClass].Count > 1) // Class has composite key
                         {
-                            var compositeKey = primaryKeyDictionary[typeClass].Select(key => "property." + key); // Create composite key description
-                            entitySet += ".HasKey(property => new{ " + string.Join(", ", compositeKey) + " })"; // Add composite key to entity data model
+                            var compositeKey = primaryKeyDictionary[typeClass].Select(key => "entityType." + key); // Create composite key description
+                            entitySet += ".EntityType.HasKey(entityType => new { " + string.Join(", ", compositeKey) + " })"; // Add composite key to entity data model
                         }
                         entitySet += ";" + Environment.NewLine; // Go to next line
                     }
@@ -70,7 +71,7 @@ using " + contextMember.Key.Item2 + ";" + Environment.NewLine + Environment.NewL
             ODataConventionModelBuilder builder = new();" + Environment.NewLine + entitySet + $@"            return builder.GetEdmModel();
         }}
     }}
-}}";
+}}" + "//" + h;
 
                 context.AddSource(contextName.Replace("Context", "") + "EntityDataModel.g.cs", SourceText.From(source, Encoding.UTF8)); // Create new entity data model class
             }

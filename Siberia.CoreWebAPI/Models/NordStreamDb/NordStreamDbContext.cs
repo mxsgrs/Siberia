@@ -23,7 +23,7 @@ namespace Siberia.CoreWebAPI.Models.NordStreamDb
         {
             modelBuilder.Entity<Pipeline>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.HasKey(e => new { e.FirstId, e.LocationId });
             });
 
             modelBuilder.Entity<Society>(entity =>

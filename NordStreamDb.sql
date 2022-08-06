@@ -5,9 +5,9 @@ GO
 
 CREATE TABLE Pipeline
 (
-	Id int NOT NULL PRIMARY KEY,
+	FirstId int NOT NULL PRIMARY KEY,
 	Name nvarchar(50),
-	Location nvarchar(50)
+	LocationId nvarchar(50)
 );
 GO
 

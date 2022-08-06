@@ -9,6 +9,7 @@ namespace Siberia.SourceLibrary.Finders
     {
         public HashSet<ClassDeclarationSyntax> ContextList { get; } = new();
         public Dictionary<string, HashSet<string>> TypeKeysDictionary { get; } = new();
+        public string MyProperty { get; set; } = "";
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
@@ -22,9 +23,12 @@ namespace Siberia.SourceLibrary.Finders
 
             if (syntaxNode is ClassDeclarationSyntax typeClassDeclaration)
             {
-                var list = typeClassDeclaration.GetAnnotatedNodes(new SyntaxAnnotation("Key"))
-                    //.Where(node => node is PropertyDeclarationSyntax property && property.get)
+                var list = typeClassDeclaration.ChildNodes()
+                    .Where(node => node is PropertyDeclarationSyntax property)
                     .Select(node => (PropertyDeclarationSyntax)node)
+                    .Where(property => property.AttributeLists.Where(item => item.Attributes
+                        .Where(att => att.Name.ToFullString() == "Key").Any())
+                        .Any())
                     .Select(property => property.Identifier.ValueText)
                     .ToList();
 
@@ -39,12 +43,6 @@ namespace Siberia.SourceLibrary.Finders
                     var hashset = new HashSet<string>(list);
                     TypeKeysDictionary.Add(classDeclarationName, hashset);
                 }
-
-                //PropertyDeclarationSyntax prop;
-                //foreach (var item in prop.AttributeLists)
-                //{
-                //    item.Attributes.Contains();
-                //}
             }
         }
     }
