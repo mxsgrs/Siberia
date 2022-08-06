@@ -7,11 +7,10 @@ namespace Siberia.CoreWebAPI.Models.NordStreamDb
     public partial class Pipeline
     {
         [Key]
-        public int FirstId { get; set; }
+        public int Id { get; set; }
         [StringLength(50)]
-        public string? Name { get; set; }
-        [Key]
+        public string? Company { get; set; }
         [StringLength(50)]
-        public string LocationId { get; set; } = "";
+        public string MainLocation { get; set; } = "";
     }
 }

@@ -5,9 +5,9 @@ GO
 
 CREATE TABLE Pipeline
 (
-	FirstId int NOT NULL PRIMARY KEY,
-	Name nvarchar(50),
-	LocationId nvarchar(50)
+	Id INT NOT NULL PRIMARY KEY,
+	Company NVARCHAR(50),
+	MainLocation NVARCHAR(50)
 );
 GO
 
@@ -22,9 +22,9 @@ GO
 
 CREATE TABLE Society
 (
-	Id int NOT NULL PRIMARY KEY,
-	Name nvarchar(50),
-	Country nvarchar(50)
+	Id INT NOT NULL PRIMARY KEY,
+	Company NVARCHAR(50),
+	Country NVARCHAR(50)
 );
 GO
 
@@ -36,4 +36,20 @@ VALUES (79, 'Gazprom', 'Russia'),
 (83, 'Shell', 'United Kingdom'),
 (84, 'ExxonMobil', 'United States'),
 (85, 'Saudi Aramco', 'Saudi Arabia');
+GO
+
+CREATE TABLE Bank
+(
+	SerialId INT NOT NULL,
+	MarketNoId INT NOT NULL,
+	Company NVARCHAR(50),
+	Market NVARCHAR(50),
+	Country NVARCHAR(50),
+	CONSTRAINT PK_Bank PRIMARY KEY (SerialId, MarketNoId)
+);
+GO
+
+INSERT INTO Bank 
+VALUES (118, 4958, 'MorganStanley', 'Nasdaq', 'USA'),
+(120, 4668, 'SocieteGenerale', 'CAC40', 'France');
 GO

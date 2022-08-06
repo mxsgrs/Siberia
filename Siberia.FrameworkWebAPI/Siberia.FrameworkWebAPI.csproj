@@ -167,8 +167,8 @@
     <Content Include="Global.asax" />
     <Content Include="NordStreamDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NordStreamDbModel.edmx</DependentUpon>
       <LastGenOutput>NordStreamDbModel.Context.cs</LastGenOutput>
+      <DependentUpon>NordStreamDbModel.edmx</DependentUpon>
     </Content>
     <Content Include="NordStreamDbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

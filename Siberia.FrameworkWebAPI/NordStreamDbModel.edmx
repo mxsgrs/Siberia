@@ -10,16 +10,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Location" Type="varchar" MaxLength="50" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="MainLocation" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Society">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="Company" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="NordStreamDbModelStoreContainer">
           <EntitySet Name="Pipeline" EntityType="Self.Pipeline" Schema="dbo" store:Type="Tables" />
@@ -35,16 +35,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MainLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Society">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="NordStreamDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Pipeline" EntityType="Self.Pipeline" />
@@ -60,8 +60,8 @@
             <EntityTypeMapping TypeName="NordStreamDbModel.Pipeline">
               <MappingFragment StoreEntitySet="Pipeline">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="MainLocation" ColumnName="MainLocation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -69,7 +69,7 @@
             <EntityTypeMapping TypeName="NordStreamDbModel.Society">
               <MappingFragment StoreEntitySet="Society">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
               </MappingFragment>
             </EntityTypeMapping>

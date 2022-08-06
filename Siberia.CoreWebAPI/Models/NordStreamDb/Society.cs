@@ -9,7 +9,7 @@ namespace Siberia.CoreWebAPI.Models.NordStreamDb
         [Key]
         public int Id { get; set; }
         [StringLength(50)]
-        public string? Name { get; set; }
+        public string? Company { get; set; }
         [StringLength(50)]
         public string? Country { get; set; }
     }
