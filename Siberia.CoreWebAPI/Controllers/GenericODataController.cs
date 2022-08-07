@@ -44,7 +44,7 @@ namespace Siberia.CoreWebAPI.Controllers
         /// Create operation
         /// </summary>
         /// <param name="entity">New entity</param>
-        /// <returns>Request result</returns>
+        /// <returns>Action result</returns>
         [EnableQuery]
         public async Task<IActionResult> Post([FromBody] EntityType entity)
         {
@@ -60,7 +60,7 @@ namespace Siberia.CoreWebAPI.Controllers
         /// </summary>
         /// <param name="key">Entity primary key</param>
         /// <param name="entity">Entity new values</param>
-        /// <returns>Request result</returns>
+        /// <returns>Action result</returns>
         [EnableQuery]
         public async Task<IActionResult> Patch(int key, Delta<EntityType> entity)
         {
@@ -89,7 +89,7 @@ namespace Siberia.CoreWebAPI.Controllers
         /// </summary>
         /// <param name="key">Entity primary key</param>
         /// <param name="entity">Entity new values</param>
-        /// <returns>Request result</returns>
+        /// <returns>Action result</returns>
         [EnableQuery]
         public async Task<IActionResult> Put(int key, [FromBody] EntityType entity)
         {
@@ -120,7 +120,7 @@ namespace Siberia.CoreWebAPI.Controllers
         /// Delete operation
         /// </summary>
         /// <param name="key">Entity primary key</param>
-        /// <returns>Request result</returns>
+        /// <returns>Action result</returns>
         [EnableQuery]
         public async Task<IActionResult> Delete(int key)
         {

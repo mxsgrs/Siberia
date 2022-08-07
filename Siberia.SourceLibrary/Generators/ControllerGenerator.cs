@@ -46,12 +46,14 @@ namespace Siberia.SourceLibrary.Generators
                             string compositeKeysDeclaration = "";
                             string compositeKeys = "";
                             string compositeKeysDictionary = "";
-                            foreach(var item in primaryKeyDictionary[entityType]) 
+                            string compositeKeysXML = "";
+                            foreach(var key in primaryKeyDictionary[entityType]) 
                             { 
-                                compositeKeysDeclaration += "[FromODataUri] " + item.Item1 + " key" + item.Item2 + ", ";
-                                compositeKeys += "key" + item.Item2 + ", ";
-                                compositeKeysDictionary += $@"{{ """ + item.Item2 + $@""", key" + item.Item2 + $@" }}," 
+                                compositeKeysDeclaration += "[FromODataUri] " + key.Item1 + " key" + key.Item2 + ", ";
+                                compositeKeys += "key" + key.Item2 + ", ";
+                                compositeKeysDictionary += $@"{{ """ + key.Item2 + $@""", key" + key.Item2 + $@" }}," 
                                     + Environment.NewLine + "                ";
+                                compositeKeysXML += $@"        /// <param name=""key" + key.Item2 + $@""">Entity primary key</param>" + Environment.NewLine;
                             };
                             compositeKeysDeclaration = compositeKeysDeclaration.Remove(compositeKeysDeclaration.Length - 2);
                             compositeKeys = compositeKeys.Remove(compositeKeys.Length - 2);
@@ -64,10 +66,7 @@ namespace Siberia.SourceLibrary.Generators
     {{
         protected DbContext? Context; // Dependency injection
 
-        public " + entityName + $@"Controller(" + contextName + $@" context)
-        {{
-            Context = context;
-        }}
+        public " + entityName + $@"Controller(" + contextName + $@" context) {{ Context = context; }}
 
         /// <summary>
         /// Read operation
@@ -84,8 +83,8 @@ namespace Siberia.SourceLibrary.Generators
         /// <summary>
         /// Read operation
         /// </summary>
-        /// <param name=""key"">Entity primary key</param>
-        /// <returns>Corresponding entity</returns>
+" + compositeKeysXML + 
+        $@"        /// <returns>Corresponding entity</returns>
         [EnableQuery]
         public async Task<IActionResult> Get(" + compositeKeysDeclaration + $@")
         {{
@@ -98,8 +97,8 @@ namespace Siberia.SourceLibrary.Generators
         /// <summary>
         /// Create operation
         /// </summary>
-        /// <param name=""entity"">New entity</param>
-        /// <returns>Request result</returns>
+        /// <param name=""entity"">Entity new values</param>
+        /// <returns>Corresponding entity</returns>
         [EnableQuery]
         public async Task<IActionResult> Post([FromBody] " + entityType + $@" entity)
         {{
@@ -113,9 +112,9 @@ namespace Siberia.SourceLibrary.Generators
         /// <summary>
         /// Update operation
         /// </summary>
-        /// <param name=""key"">Entity primary key</param>
-        /// <param name=""entity"">Entity new values</param>
-        /// <returns>Request result</returns>
+" + compositeKeysXML +
+        $@"        /// <param name=""entity"">Entity new values</param>
+        /// <returns>Action result</returns>
         [EnableQuery]
         public async Task<IActionResult> Patch(" + compositeKeysDeclaration + $@", Delta<" + entityType + $@"> entity)
         {{
@@ -142,9 +141,9 @@ namespace Siberia.SourceLibrary.Generators
         /// <summary>
         /// Update operation
         /// </summary>
-        /// <param name=""key"">Entity primary key</param>
-        /// <param name=""entity"">Entity new values</param>
-        /// <returns>Request result</returns>
+" + compositeKeysXML +
+        $@"        /// <param name=""entity"">Entity new values</param>
+        /// <returns>Action result</returns>
         [EnableQuery]
         public async Task<IActionResult> Put(" + compositeKeysDeclaration + $@", [FromBody] " + entityType + $@" entity)
         {{
@@ -183,8 +182,8 @@ namespace Siberia.SourceLibrary.Generators
         /// <summary>
         /// Delete operation
         /// </summary>
-        /// <param name=""key"">Entity primary key</param>
-        /// <returns>Request result</returns>
+" + compositeKeysXML + 
+        $@"        /// <returns>Action status</returns>
         [EnableQuery]
         public async Task<IActionResult> Delete(" + compositeKeysDeclaration + $@")
         {{
