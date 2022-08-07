@@ -45,13 +45,17 @@ namespace Siberia.SourceLibrary.Generators
                         {
                             string compositeKeysDeclaration = "";
                             string compositeKeys = "";
+                            string compositeKeysDictionary = "";
                             foreach(var item in primaryKeyDictionary[entityType]) 
                             { 
                                 compositeKeysDeclaration += "[FromODataUri] " + item.Item1 + " key" + item.Item2 + ", ";
                                 compositeKeys += "key" + item.Item2 + ", ";
+                                compositeKeysDictionary += $@"{{ """ + item.Item2 + $@""", key" + item.Item2 + $@" }}," 
+                                    + Environment.NewLine + "                ";
                             };
                             compositeKeysDeclaration = compositeKeysDeclaration.Remove(compositeKeysDeclaration.Length - 2);
                             compositeKeys = compositeKeys.Remove(compositeKeys.Length - 2);
+                            compositeKeysDictionary = compositeKeysDictionary.Remove(compositeKeysDictionary.Length - 19);
 
                             string compositeKeyController = $@"    /// <summary>
     /// Handle CRUD operations 
@@ -147,11 +151,20 @@ namespace Siberia.SourceLibrary.Generators
             if (!ModelState.IsValid) {{ return BadRequest(ModelState); }} // Verify input respects model
             if (Context is null) {{ return UnprocessableEntity(); }} // Request is correct but not possible
 
-            //var entityType = Context.Model.FindEntityType(typeof(" + entityType + $@")); // Gets entity type
-            //var primaryKeyName = entityType?.FindPrimaryKey()?.Properties.Select(x => x.Name).Single(); // Find primary key name
-            //if (primaryKeyName is null) {{ return UnprocessableEntity(); }} // Check if primary key exists
-            //var primaryKeyValue = (int?)entity?.GetType()?.GetProperty(primaryKeyName)?.GetValue(entity, null); // Get primary key value
-            //if (key != primaryKeyValue || entity is null) {{ return BadRequest(); }} // Check if primary keys are the same
+            var entityType = Context.Model.FindEntityType(typeof(" + entityType + $@")); // Gets entity type
+            var primaryKeyNames = entityType?.FindPrimaryKey()?.Properties.Select(property => property.Name); // Find primary key names
+            if (primaryKeyNames is null) {{ return UnprocessableEntity(); }} // Check if primary key exists
+
+            Dictionary<string, object?> matchingKeys = new()
+            {{
+                " + compositeKeysDictionary + $@"
+            }};
+
+            foreach (var primaryKeyName in primaryKeyNames)
+            {{
+                var primaryKeyValue = entity?.GetType()?.GetProperty(primaryKeyName)?.GetValue(entity, null); // Get primary key value
+                if (!Equals(primaryKeyValue, matchingKeys[primaryKeyName]) || entity is null) {{ return BadRequest(); }} // Check if primary keys are the same
+            }}
 
             Context.Entry(entity).State = EntityState.Modified; // Entitty target is declared as modified
             try
