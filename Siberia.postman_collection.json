@@ -39,7 +39,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Id\": 59,\r\n    \"Name\": \"NordStream2\",\r\n    \"Location\": \"Baltic\"\r\n}\r\n",
+									"raw": "{\r\n    \"Id\": 59,\r\n    \"Company\": \"NordStream2\",\r\n    \"MainLocation\": \"Baltic\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -68,7 +68,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Location\": \"Venezuela\"\r\n}\r\n",
+									"raw": "{\r\n    \"MainLocation\": \"Venezuela\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -76,7 +76,7 @@
 									}
 								},
 								"url": {
-									"raw": "https://localhost:7082/NordStreamDb/Pipelines(48)",
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines(59)",
 									"protocol": "https",
 									"host": [
 										"localhost"
@@ -84,7 +84,7 @@
 									"port": "7082",
 									"path": [
 										"NordStreamDb",
-										"Pipelines(48)"
+										"Pipelines(59)"
 									]
 								}
 							},
@@ -97,7 +97,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"Id\": 47,\r\n    \"Name\": \"NordStream2\",\r\n    \"Location\": \"Baltic\"\r\n}\r\n",
+									"raw": "{\r\n    \"Id\": 59,\r\n    \"Company\": \"NordStream\",\r\n    \"MainLocation\": \"Germany\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -105,7 +105,7 @@
 									}
 								},
 								"url": {
-									"raw": "https://localhost:7082/NordStreamDb/Pipelines(47)",
+									"raw": "https://localhost:7082/NordStreamDb/Pipelines(59)",
 									"protocol": "https",
 									"host": [
 										"localhost"
@@ -113,7 +113,7 @@
 									"port": "7082",
 									"path": [
 										"NordStreamDb",
-										"Pipelines(47)"
+										"Pipelines(59)"
 									]
 								}
 							},
@@ -172,7 +172,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\t\"requests\": [\r\n\t{\r\n\t\t\"method\": \"POST\",\r\n\t\t\"url\": \"Pipelines\",\r\n\t\t\"id\": \"t3\",\r\n\t\t\"body\": {\r\n\t\t\t\"Id\": 52,\r\n            \"Name\": \"Saharan\",\r\n            \"Location\": \"Nigeria\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t},\r\n\t{\r\n\t\t\"method\": \"PATCH\",\r\n\t\t\"atomicityGroup\": \"g1\",\r\n\t\t\"url\": \"Pipelines/51\",\r\n\t\t\"id\": \"t2\",\r\n\t\t\"body\": {\r\n\t\t\t\"Location\": \"Japan\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t}\r\n\t]\r\n}",
+									"raw": "{\r\n\t\"requests\": [\r\n\t{\r\n\t\t\"method\": \"POST\",\r\n\t\t\"url\": \"Pipelines\",\r\n\t\t\"id\": \"t3\",\r\n\t\t\"body\": {\r\n\t\t\t\"Id\": 52,\r\n            \"Company\": \"Saharan\",\r\n            \"MainLocation\": \"Nigeria\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t},\r\n\t{\r\n\t\t\"method\": \"PATCH\",\r\n\t\t\"atomicityGroup\": \"g1\",\r\n\t\t\"url\": \"Pipelines/51\",\r\n\t\t\"id\": \"t2\",\r\n\t\t\"body\": {\r\n\t\t\t\"MainLocation\": \"Japan\"\r\n\t\t},\r\n\t\t\"headers\": {\r\n\t\t\t\"Content-Type\": \"application/json;odata=verbose\",\r\n\t\t\t\"Accept\": \"application/json;odata=verbose\",\r\n\t\t\t\"Prefer\": \"continue-on-error\"\r\n\t\t}\r\n\t}\r\n\t]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -189,6 +189,138 @@
 									"path": [
 										"NordStreamDb",
 										"$batch"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Composite Keys",
+					"item": [
+						{
+							"name": "Composite Read",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Banks(MarketNoId=4958,SerialId=118)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Banks(MarketNoId=4958,SerialId=118)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Composite Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"SerialId\": 120,\r\n    \"MarketNoId\": 4958,\r\n    \"Company\": \"Lehman Brothers\",\r\n    \"Market\": \"Nasdaq\",\r\n    \"Country\": \"USA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Banks",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Banks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Composite Update Property",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Country\": \"Bahamas\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Banks(MarketNoId=4958,SerialId=120)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Banks(MarketNoId=4958,SerialId=120)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Composite Update Entity",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"SerialId\": 120,\r\n    \"MarketNoId\": 4958,\r\n    \"Company\": \"Lehman Brothers\",\r\n    \"Market\": \"DowJones\",\r\n    \"Country\": \"USA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Banks(MarketNoId=4958,SerialId=120)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Banks(MarketNoId=4958,SerialId=120)"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Composite Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7082/NordStreamDb/Banks(MarketNoId=4958,SerialId=120)",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7082",
+									"path": [
+										"NordStreamDb",
+										"Banks(MarketNoId=4958,SerialId=120)"
 									]
 								}
 							},

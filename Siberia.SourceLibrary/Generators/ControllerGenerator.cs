@@ -58,7 +58,7 @@ namespace Siberia.SourceLibrary.Generators
     /// </summary>
     public class " + entityName + $@"Controller : ODataController
     {{
-        protected DbContext? Context; // Dependency injection in child classes
+        protected DbContext? Context; // Dependency injection
 
         public " + entityName + $@"Controller(" + contextName + $@" context)
         {{
